@@ -1,5 +1,6 @@
 import java.io.IOException;
 
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -9,7 +10,7 @@ import org.json.*;
 
 import java.util.*;
 
-public class BovadaService implements WebService {
+public class BovadaService implements SiteService {
 	private Document d;
 	private String requestURL;
 	
@@ -51,11 +52,9 @@ public class BovadaService implements WebService {
 			    	JSONObject moneyLine = group.getJSONArray("itemList").getJSONObject(1);
 			    	JSONArray outcomes = moneyLine.getJSONArray("outcomes"); //contains all moneyline information
 			    	String[] sides = eventDescription.toString().split("@");
-			    	String side1 = sides[0].substring(0, sides[0].length()-1);
-			    	String side2 = sides[1].substring(0, sides[1].length()-1);
-			    	int outcome1 = Integer.parseInt(outcomes.getJSONObject(0).getJSONObject("price").get("american").toString());
-			    	int outcome2 = Integer.parseInt(outcomes.getJSONObject(0).getJSONObject("price").get("american").toString());
-			    	Event e = new Event(eventDescription.toString(), side1, side2, outcome1, outcome2, requestURL);
+			    	int side1 = Integer.parseInt(outcomes.getJSONObject(0).getJSONObject("price").get("american").toString());
+			    	int side2 = Integer.parseInt(outcomes.getJSONObject(0).getJSONObject("price").get("american").toString());
+			    	Event e = new Event(eventDescription.toString(), side1, side2, requestURL);
 			    	String key = side1+"|"+side2;
 			    	book.put(key, e);
 		    	}
