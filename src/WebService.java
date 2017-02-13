@@ -30,8 +30,17 @@ public class WebService {
 	}
 	
 	public Map<String,List<Event>> parseDocument(){
-		Map<String, List<Event>> book = new HashMap<String, List<Event>>();
+		Map<String, List<Event>> aggregateBook = new HashMap<String, List<Event>>();
 		List<String> eventNames = new ArrayList<String>();
+		List<String> sources = new ArrayList<String>();
+		
+		//GET SOURCES
+		Elements bookHeaders = d.select(".op-book-header");
+		for(Element bookHeader : bookHeaders){
+			Element img = bookHeader.child(0).child(0);
+			sources.add(img.attr("alt"));
+		}
+		
 		//GET EVENTS 
 		Elements events = d.select(".op-matchup-wrapper."+sport);
 		for(Element event : events){
@@ -61,7 +70,7 @@ public class WebService {
 				if(spreadElems.get(0).hasText()){
 					int side1 = Integer.parseInt(spreadElems.get(0).text());
 					int side2 = Integer.parseInt(spreadElems.get(1).text());
-					Event e = new Event(eventName, side1, side2, "");
+					Event e = new Event(eventName, side1, side2, sources.get(j));
 					eventList.add(e);
 				}
 				else{
@@ -73,16 +82,16 @@ public class WebService {
 						if(!sideStr1.equals("") && !sideStr2.equals("")){
 							int side1 = Integer.parseInt(sideStr1);
 							int side2 = Integer.parseInt(sideStr2);
-							Event e = new Event(eventName, side1, side2, "");
+							Event e = new Event(eventName, side1, side2, sources.get(j));
 							eventList.add(e);
 						}
 					}
 				}
 			}
-			book.put(eventName, eventList);
+			aggregateBook.put(eventName, eventList);
 			eventIndex++;
 		}
 		
-		return book;
+		return aggregateBook;
 	}
 }

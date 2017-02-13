@@ -13,6 +13,6 @@ public class Event {
 	}
 	
 	public String toString(){
-		return side1+", "+side2+" " + source;
+		return side1+", "+side2+" " + "(" + source + ")";
 	}
 }
