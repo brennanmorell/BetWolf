@@ -10,7 +10,8 @@ public class BookMaster {
 	}
 	
 	public void fetchBooks(){
-		book = service.fetch();
+		//book = service.fetch();
+		book = service.spoofResults();
 	}
 	
 	public void printBooks(){

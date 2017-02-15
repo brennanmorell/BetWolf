@@ -24,7 +24,7 @@ public class Main {
 		BookMaster ncaabMaster = new BookMaster(ncaabService);
 		BookMaster boxingMaster = new BookMaster(boxingService);
 		
-		System.out.println("NBA");
+		/*System.out.println("NBA");
 		nbaMaster.fetchBooks();
 		nbaMaster.printBooks();
 		System.out.println();
@@ -42,7 +42,7 @@ public class Main {
 		System.out.println("NCAAB");
 		ncaabMaster.fetchBooks();
 		ncaabMaster.printBooks();
-		System.out.println();
+		System.out.println();*/
 		
 		System.out.println("BOXING");
 		boxingMaster.fetchBooks();
