@@ -18,7 +18,7 @@ public class BovadaService implements SiteService {
 		requestURL = r;
 	}
 	
-	public Map<String,Event> fetchDocument(){	
+	public Map<String,Spread> fetchDocument(){	
 		try {
 			d = Jsoup.connect(requestURL+"basketball").timeout(6000).get();
 			//System.out.println(d);
@@ -27,12 +27,12 @@ public class BovadaService implements SiteService {
 			System.out.println(e.getMessage());
 			System.out.println("Error fetching book " + requestURL+"basketball");
 			e.printStackTrace();
-			return new HashMap<String, Event>();
+			return new HashMap<String, Spread>();
 		}
 	}
 	
-	public HashMap<String,Event> parseDocument(){	
-		HashMap<String, Event> book = new HashMap<String,Event>();
+	public HashMap<String,Spread> parseDocument(){	
+		HashMap<String, Spread> book = new HashMap<String,Spread>();
 		Elements scripts = d.select("script");
 	    Element target = scripts.get(19);
 	    String jsonObject = target.toString().substring(54,target.toString().length()-10);
@@ -54,7 +54,7 @@ public class BovadaService implements SiteService {
 			    	String[] sides = eventDescription.toString().split("@");
 			    	int side1 = Integer.parseInt(outcomes.getJSONObject(0).getJSONObject("price").get("american").toString());
 			    	int side2 = Integer.parseInt(outcomes.getJSONObject(0).getJSONObject("price").get("american").toString());
-			    	Event e = new Event(eventDescription.toString(), side1, side2, requestURL);
+			    	Spread e = new Spread(eventDescription.toString(), side1, side2, requestURL);
 			    	String key = side1+"|"+side2;
 			    	book.put(key, e);
 		    	}

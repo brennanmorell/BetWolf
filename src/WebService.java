@@ -17,7 +17,7 @@ public class WebService {
 		sport = s;
 	}
 	
-	public Map<String,List<Event>> fetch(){
+	public Map<String,List<Spread>> fetch(){
 		try {
 			d = Jsoup.connect("http://www.oddsshark.com/"+bookName+"/odds").timeout(6000).get();
 			//System.out.println(d);
@@ -26,11 +26,11 @@ public class WebService {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
-		return new HashMap<String, List<Event>>();
+		return new HashMap<String, List<Spread>>();
 	}
 	
-	public Map<String,List<Event>> parseDocument(){
-		Map<String, List<Event>> aggregateBook = new HashMap<String, List<Event>>();
+	public Map<String,List<Spread>> parseDocument(){
+		Map<String, List<Spread>> aggregateBook = new HashMap<String, List<Spread>>();
 		List<String> eventNames = new ArrayList<String>();
 		List<String> sources = new ArrayList<String>();
 		
@@ -59,7 +59,7 @@ public class WebService {
 		int eventIndex = 0;
 		for(int i = 0; i < eventLines.size(); i++){
 			Elements siteOdds = eventLines.get(i).select(".op-item-wrapper");
-			List<Event> eventList = new ArrayList<Event>();
+			List<Spread> eventList = new ArrayList<Spread>();
 			String eventName = eventNames.get(eventIndex);
 			for(int j = 0; j < siteOdds.size(); j++){
 				String spreadClass = ".op-item.spread-price";
@@ -70,7 +70,7 @@ public class WebService {
 				if(spreadElems.get(0).hasText()){
 					int side1 = Integer.parseInt(spreadElems.get(0).text());
 					int side2 = Integer.parseInt(spreadElems.get(1).text());
-					Event e = new Event(eventName, side1, side2, sources.get(j));
+					Spread e = new Spread(eventName, side1, side2, sources.get(j));
 					eventList.add(e);
 				}
 				else{
@@ -82,7 +82,7 @@ public class WebService {
 						if(!sideStr1.equals("") && !sideStr2.equals("")){
 							int side1 = Integer.parseInt(sideStr1);
 							int side2 = Integer.parseInt(sideStr2);
-							Event e = new Event(eventName, side1, side2, sources.get(j));
+							Spread e = new Spread(eventName, side1, side2, sources.get(j));
 							eventList.add(e);
 						}
 					}
@@ -95,344 +95,342 @@ public class WebService {
 		return aggregateBook;
 	}
 	
-	public Map<String, List<Event>> spoofResults(){
-		Map<String, List<Event>> spoofBook = new HashMap<String, List<Event>>();
+	public Map<String, List<Spread>> spoofResults(){
+		Map<String, List<Spread>> spoofBook = new HashMap<String, List<Spread>>();
 		
-		List<Event> events = new ArrayList<Event>();
+		List<Spread> events = new ArrayList<Spread>();
 		String key = "Deontay Wilder vs Gerald Washington";
-		Event e = new Event(key, Integer.parseInt("-1667"), Integer.parseInt("800"), "Opening");
+		events = new ArrayList<Spread>();
+		Spread e;
+		//Spread e = new Spread(key, Integer.parseInt("-1667"), Integer.parseInt("800"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-1400"), Integer.parseInt("750"), "BOVADA.LV");
 		events.add(e);
-		spoofBook.put(key, events);
-		
-		key = "Deontay Wilder vs Gerald Washington";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-1400"), Integer.parseInt("750"), "BOVADA.LV");
+		e = new Spread(key, Integer.parseInt("-1500"), Integer.parseInt("1000"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-1500"), Integer.parseInt("1000"), "5Dimes");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-1500"), Integer.parseInt("1000"), "SportBet");
+		e = new Spread(key, Integer.parseInt("-1500"), Integer.parseInt("1000"), "SportBet");
 		events.add(e);
 		spoofBook.put(key, events);
 		
 		key = "David Haye vs Tony Bellew";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-625"), Integer.parseInt("365"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("-625"), Integer.parseInt("365"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-800"), Integer.parseInt("500"), "BOVADA.LV");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-800"), Integer.parseInt("500"), "BOVADA.LV");
+		e = new Spread(key, Integer.parseInt("-800"), Integer.parseInt("550"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-800"), Integer.parseInt("550"), "5Dimes");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-800"), Integer.parseInt("550"), "SportBet");
+		e = new Spread(key, Integer.parseInt("-800"), Integer.parseInt("550"), "SportBet");
 		events.add(e);
 		spoofBook.put(key, events);
 		
 		key = "Eleider Alvarez vs Lucian Bute";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-588"), Integer.parseInt("360"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("-588"), Integer.parseInt("360"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-335"), Integer.parseInt("245"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-335"), Integer.parseInt("245"), "5Dimes");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-335"), Integer.parseInt("245"), "SportBet");
+		e = new Spread(key, Integer.parseInt("-335"), Integer.parseInt("245"), "SportBet");
 		events.add(e);
 		spoofBook.put(key, events);
 		
 		key = "Gary Russell Jr vs Oscar Escandon";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-5000"), Integer.parseInt("1400"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("-5000"), Integer.parseInt("1400"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-5250"), Integer.parseInt("1750"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-5250"), Integer.parseInt("1750"), "5Dimes");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-5250"), Integer.parseInt("1750"), "SportBet");
+		e = new Spread(key, Integer.parseInt("-5250"), Integer.parseInt("1750"), "SportBet");
 		events.add(e);
 		spoofBook.put(key, events);
 		
 		key = "Miguel Angel Cotto vs James Kirkland";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-500"), Integer.parseInt("300"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("-500"), Integer.parseInt("300"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-500"), Integer.parseInt("350"), "BOVADA.LV");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-500"), Integer.parseInt("350"), "BOVADA.LV");
+		e = new Spread(key, Integer.parseInt("-420"), Integer.parseInt("350"), "Westgate");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-420"), Integer.parseInt("350"), "Westgate");
+		e = new Spread(key, Integer.parseInt("-460"), Integer.parseInt("360"), "BetOnline");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-460"), Integer.parseInt("360"), "BetOnline");
+		e = new Spread(key, Integer.parseInt("-445"), Integer.parseInt("345"), "MyBookie");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-445"), Integer.parseInt("345"), "MyBookie");
+		e = new Spread(key, Integer.parseInt("-420"), Integer.parseInt("375"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-420"), Integer.parseInt("375"), "5Dimes");
+		e = new Spread(key, Integer.parseInt("-450"), Integer.parseInt("325"), "TopBet");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-450"), Integer.parseInt("325"), "TopBet");
+		e = new Spread(key, Integer.parseInt("-440"), Integer.parseInt("350"), "BetNow");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-440"), Integer.parseInt("350"), "BetNow");
+		e = new Spread(key, Integer.parseInt("-460"), Integer.parseInt("360"), "SportsBetting");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-460"), Integer.parseInt("360"), "SportsBetting");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-420"), Integer.parseInt("375"), "SportBet");
+		e = new Spread(key, Integer.parseInt("-420"), Integer.parseInt("375"), "SportBet");
 		events.add(e);
 		spoofBook.put(key, events);
 		
 		key = "Francisco Vargas vs Miguel Berchelt";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-303"), Integer.parseInt("900"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("-303"), Integer.parseInt("900"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-135"), Integer.parseInt("105"), "BOVADA.LV");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-135"), Integer.parseInt("105"), "BOVADA.LV");
+		e = new Spread(key, Integer.parseInt("-135"), Integer.parseInt("115"), "BetOnline");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-135"), Integer.parseInt("115"), "BetOnline");
+		e = new Spread(key, Integer.parseInt("-125"), Integer.parseInt("105"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-125"), Integer.parseInt("105"), "5Dimes");
+		e = new Spread(key, Integer.parseInt("-133"), Integer.parseInt("105"), "GTBets");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-133"), Integer.parseInt("105"), "GTBets");
+		e = new Spread(key, Integer.parseInt("-135"), Integer.parseInt("115"), "SportsBetting");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-35"), Integer.parseInt("115"), "SportsBetting");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-125"), Integer.parseInt("105"), "SportBet");
+		e = new Spread(key, Integer.parseInt("-125"), Integer.parseInt("105"), "SportBet");
 		events.add(e);
 		spoofBook.put(key, events);
 		
 		key = "Gavin McDonnell vs Rey Vargas";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("144"), Integer.parseInt("-196"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("144"), Integer.parseInt("-196"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("210"), Integer.parseInt("-270"), "BOVADA.LV");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("210"), Integer.parseInt("-270"), "BOVADA.LV");
+		e = new Spread(key, Integer.parseInt("220"), Integer.parseInt("-260"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("220"), Integer.parseInt("-260"), "5Dimes");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("220"), Integer.parseInt("-260"), "SportBet");
+		e = new Spread(key, Integer.parseInt("220"), Integer.parseInt("-260"), "SportBet");
 		events.add(e);
 		spoofBook.put(key, events);
 		
 		key = "Jermell Charlo vs Charles Hatley";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-1667"), Integer.parseInt("650"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("-1667"), Integer.parseInt("650"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-1000"), Integer.parseInt("600"), "BOVADA.LV");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-1000"), Integer.parseInt("600"), "BOVADA.LV");
+		e = new Spread(key, Integer.parseInt("-1000"), Integer.parseInt("675"), "BetOnline");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-1000"), Integer.parseInt("675"), "BetOnline");
+		e = new Spread(key, Integer.parseInt("-1200"), Integer.parseInt("775"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-1200"), Integer.parseInt("775"), "5Dimes");
+		e = new Spread(key, Integer.parseInt("-1000"), Integer.parseInt("675"), "SportsBettting");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-1000"), Integer.parseInt("675"), "SportsBettting");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-1200"), Integer.parseInt("775"), "SportBet");
+		e = new Spread(key, Integer.parseInt("-1200"), Integer.parseInt("775"), "SportBet");
 		events.add(e);
 		spoofBook.put(key, events);
 		
 		key = "Guillermo Rigondeaux vs Moises Flores";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-1000"), Integer.parseInt("500"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("-1000"), Integer.parseInt("500"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-800"), Integer.parseInt("500"), "BOVADA.LV");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-800"), Integer.parseInt("500"), "BOVADA.LV");
+		e = new Spread(key, Integer.parseInt("-900"), Integer.parseInt("500"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-900"), Integer.parseInt("500"), "5Dimes");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-900"), Integer.parseInt("500"), "SportBet");
-		events.add(e);
-		spoofBook.put(key, events);
-		
-		key = "Petteri Fröjdholm vs Faroukh Kourbanov";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-400"), Integer.parseInt("335"), "Opening");
+		e = new Spread(key, Integer.parseInt("-900"), Integer.parseInt("500"), "SportBet");
 		events.add(e);
 		spoofBook.put(key, events);
 		
-		key = "Scott Cardle vs Luke Campbell";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("440"), Integer.parseInt("-769"), "Opening");
+		/*key = "Petteri Fröjdholm vs Faroukh Kourbanov";
+		events = new ArrayList<Spread>();
+		e = new Spread(key, Integer.parseInt("-400"), Integer.parseInt("335"), "Opening");
 		events.add(e);
-		spoofBook.put(key, events);
+		spoofBook.put(key, events);*/
+		
+		/*key = "Scott Cardle vs Luke Campbell";
+		events = new ArrayList<Spread>();
+		e = new Spread(key, Integer.parseInt("440"), Integer.parseInt("-769"), "Opening");
+		events.add(e);
+		spoofBook.put(key, events);*/
 		
 		key = "Adrien Broner vs Adrian Granados";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-500"), Integer.parseInt("300"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("-500"), Integer.parseInt("300"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-350"), Integer.parseInt("250"), "BOVADA.LV");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-350"), Integer.parseInt("250"), "BOVADA.LV");
+		e = new Spread(key, Integer.parseInt("-360"), Integer.parseInt("300"), "Westgate");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-360"), Integer.parseInt("300"), "Westgate");
+		e = new Spread(key, Integer.parseInt("-310"), Integer.parseInt("260"), "BetOnline");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-310"), Integer.parseInt("260"), "BetOnline");
+		e = new Spread(key, Integer.parseInt("-315"), Integer.parseInt("255"), "MyBookie");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-315"), Integer.parseInt("255"), "MyBookie");
+		e = new Spread(key, Integer.parseInt("-300"), Integer.parseInt("270"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-300"), Integer.parseInt("270"), "5Dimes");
+		e = new Spread(key, Integer.parseInt("-300"), Integer.parseInt("220"), "TopBet");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-300"), Integer.parseInt("220"), "TopBet");
+		e = new Spread(key, Integer.parseInt("-310"), Integer.parseInt("255"), "BetNow");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-310"), Integer.parseInt("255"), "BetNow");
+		e = new Spread(key, Integer.parseInt("-310"), Integer.parseInt("260"), "SportsBetting");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-310"), Integer.parseInt("260"), "SportsBetting");
+		e = new Spread(key, Integer.parseInt("-300"), Integer.parseInt("270"), "SportBet");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-300"), Integer.parseInt("270"), "SportBet");
+		e = new Spread(key, Integer.parseInt("-360"), Integer.parseInt("280"), "Station");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-360"), Integer.parseInt("280"), "Station");
+		e = new Spread(key, Integer.parseInt("-380"), Integer.parseInt("300"), "Mirage");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-380"), Integer.parseInt("300"), "Mirage");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-340"), Integer.parseInt("280"), "Wynn");
+		e = new Spread(key, Integer.parseInt("-340"), Integer.parseInt("280"), "Wynn");
 		events.add(e);
 		spoofBook.put(key, events);
 		
 		key = "Travis Kauffman vs Amir Mansour";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-156"), Integer.parseInt("117"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("-156"), Integer.parseInt("117"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-140"), Integer.parseInt("100"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-140"), Integer.parseInt("100"), "5Dimes");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-140"), Integer.parseInt("100"), "SportBet");
+		e = new Spread(key, Integer.parseInt("-140"), Integer.parseInt("100"), "SportBet");
 		events.add(e);
 		spoofBook.put(key, events);
 		
 		key = "Demetrius Andrade vs Jack Culcay";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-2000"), Integer.parseInt("900"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("-2000"), Integer.parseInt("900"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-1600"), Integer.parseInt("800"), "Bovada");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-1600"), Integer.parseInt("800"), "Bovada");
+		e = new Spread(key, Integer.parseInt("-1500"), Integer.parseInt("825"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-1500"), Integer.parseInt("825"), "5Dimes");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-1500"), Integer.parseInt("825"), "SportBet");
+		e = new Spread(key, Integer.parseInt("-1500"), Integer.parseInt("825"), "SportBet");
 		events.add(e);
 		spoofBook.put(key, events);
 		
 		key = "David Lemieux vs Curtis Stevens";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-286"), Integer.parseInt("203"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("-286"), Integer.parseInt("203"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-400"), Integer.parseInt("300"), "BOVADA.LV");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-400"), Integer.parseInt("300"), "BOVADA.LV");
+		e = new Spread(key, Integer.parseInt("-390"), Integer.parseInt("300"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-390"), Integer.parseInt("300"), "5Dimes");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-390"), Integer.parseInt("300"), "SportBet");
+		e = new Spread(key, Integer.parseInt("-390"), Integer.parseInt("300"), "SportBet");
 		events.add(e);
 		spoofBook.put(key, events);
 		
 		key = "Artur Szpilka vs Dominic Breazeale";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-141"), Integer.parseInt("105"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("-141"), Integer.parseInt("105"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-160"), Integer.parseInt("130"), "BOVADA.LV");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-160"), Integer.parseInt("130"), "BOVADA.LV");
+		e = new Spread(key, Integer.parseInt("-160"), Integer.parseInt("130"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-160"), Integer.parseInt("130"), "5Dimes");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-160"), Integer.parseInt("130"), "SportBet");
+		e = new Spread(key, Integer.parseInt("-160"), Integer.parseInt("130"), "SportBet");
 		events.add(e);
 		spoofBook.put(key, events);
 		
 		key = "Ohara Davies vs Derry Matthews";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-250"), Integer.parseInt("180"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("-250"), Integer.parseInt("180"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-500"), Integer.parseInt("350"), "BOVADA.LV");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-500"), Integer.parseInt("350"), "BOVADA.LV");
+		e = new Spread(key, Integer.parseInt("-490"), Integer.parseInt("355"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-490"), Integer.parseInt("355"), "5Dimes");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-490"), Integer.parseInt("355"), "SportBet");
+		e = new Spread(key, Integer.parseInt("-490"), Integer.parseInt("355"), "SportBet");
 		events.add(e);
 		spoofBook.put(key, events);
 		
 		key = "Sam Eggington vs Paul Malignaggi";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-169"), Integer.parseInt("124"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("-169"), Integer.parseInt("124"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-230"), Integer.parseInt("180"), "BOVADA.LV");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-230"), Integer.parseInt("180"), "BOVADA.LV");
+		e = new Spread(key, Integer.parseInt("-240"), Integer.parseInt("180"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-240"), Integer.parseInt("180"), "5Dimes");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-240"), Integer.parseInt("180"), "SportBet");
+		e = new Spread(key, Integer.parseInt("-240"), Integer.parseInt("180"), "SportBet");
 		events.add(e);
 		spoofBook.put(key, events);
 		
 		key = "Keith Thurman vs Danny Garcia";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-250"), Integer.parseInt("180"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("-250"), Integer.parseInt("180"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-260"), Integer.parseInt("190"), "BOVADA.LV");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-260"), Integer.parseInt("190"), "BOVADA.LV");
+		e = new Spread(key, Integer.parseInt("-240"), Integer.parseInt("200"), "Westgate");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-240"), Integer.parseInt("200"), "Westgate");
+		e = new Spread(key, Integer.parseInt("-235"), Integer.parseInt("200"), "BetOnline");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-235"), Integer.parseInt("200"), "BetOnline");
+		e = new Spread(key, Integer.parseInt("-245"), Integer.parseInt("195"), "MyBookie");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-245"), Integer.parseInt("195"), "MyBookie");
+		e = new Spread(key, Integer.parseInt("-240"), Integer.parseInt("225"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-240"), Integer.parseInt("225"), "5Dimes");
+		e = new Spread(key, Integer.parseInt("-255"), Integer.parseInt("215"), "BetNow");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-255"), Integer.parseInt("215"), "BetNow");
+		e = new Spread(key, Integer.parseInt("-240"), Integer.parseInt("180"), "SportsBetting");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-240"), Integer.parseInt("180"), "SportsBetting");
+		e = new Spread(key, Integer.parseInt("-245"), Integer.parseInt("225"), "SportBet");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-245"), Integer.parseInt("225"), "SportBet");
+		e = new Spread(key, Integer.parseInt("-240"), Integer.parseInt("190"), "Station");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-240"), Integer.parseInt("190"), "Station");
+		e = new Spread(key, Integer.parseInt("-230"), Integer.parseInt("180"), "Mirage");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-230"), Integer.parseInt("180"), "Mirage");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-240"), Integer.parseInt("200"), "Wynn");
-		events.add(e);
-		spoofBook.put(key, events);
-		
-		key = "David Avanesyan vs Lamont Peterson";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("226"), Integer.parseInt("-323"), "Opening");
+		e = new Spread(key, Integer.parseInt("-240"), Integer.parseInt("200"), "Wynn");
 		events.add(e);
 		spoofBook.put(key, events);
 		
-		key = "Craig Kennedy vs Matty Askin";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("110"), Integer.parseInt("-147"), "Opening");
+		/*key = "David Avanesyan vs Lamont Peterson";
+		events = new ArrayList<Spread>();
+		e = new Spread(key, Integer.parseInt("226"), Integer.parseInt("-323"), "Opening");
 		events.add(e);
-		spoofBook.put(key, events);
+		spoofBook.put(key, events);*/
+		
+		/*key = "Craig Kennedy vs Matty Askin";
+		events = new ArrayList<Spread>();
+		e = new Spread(key, Integer.parseInt("110"), Integer.parseInt("-147"), "Opening");
+		events.add(e);
+		spoofBook.put(key, events);*/
 		
 		key = "Jamie Conlan vs Yader Cardoza";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-10000"), Integer.parseInt("1600"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("-10000"), Integer.parseInt("1600"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-5250"), Integer.parseInt("1750"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-5250"), Integer.parseInt("1750"), "5Dimes");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-5250"), Integer.parseInt("1750"), "SportBet");
+		e = new Spread(key, Integer.parseInt("-5250"), Integer.parseInt("1750"), "SportBet");
 		events.add(e);
 		spoofBook.put(key, events);
 		
 		key = "Cecilia Braekhus vs Klara Svensson";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-1000"), Integer.parseInt("620"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("-1000"), Integer.parseInt("620"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-2250"), Integer.parseInt("950"), "BOVADA.LV");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-2250"), Integer.parseInt("950"), "BOVADA.LV");
+		e = new Spread(key, Integer.parseInt("-1400"), Integer.parseInt("850"), "BetOnline");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-1400"), Integer.parseInt("850"), "BetOnline");
+		e = new Spread(key, Integer.parseInt("-2250"), Integer.parseInt("1200"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-2250"), Integer.parseInt("1200"), "5Dimes");
+		e = new Spread(key, Integer.parseInt("-1400"), Integer.parseInt("850"), "SportsBetting");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-1400"), Integer.parseInt("850"), "SportsBetting");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-2250"), Integer.parseInt("1200"), "SportsBetting");
+		e = new Spread(key, Integer.parseInt("-2250"), Integer.parseInt("1200"), "SportsBetting");
 		events.add(e);
 		spoofBook.put(key, events);
 		
 		key = "James Dickens vs Thomas Patrick Ward";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-500"), Integer.parseInt("300"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("-500"), Integer.parseInt("300"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-280"), Integer.parseInt("220"), "BOVADA.LV");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-280"), Integer.parseInt("220"), "BOVADA.LV");
+		e = new Spread(key, Integer.parseInt("-280"), Integer.parseInt("220"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-280"), Integer.parseInt("220"), "5Dimes");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-280"), Integer.parseInt("220"), "SportBet");
+		e = new Spread(key, Integer.parseInt("-280"), Integer.parseInt("220"), "SportBet");
 		events.add(e);
 		spoofBook.put(key, events);
 		
-		key = "Chris Brown vs Soulja Boy";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("100"), Integer.parseInt("100"), "Opening");
+		/*key = "Chris Brown vs Soulja Boy";
+		events = new ArrayList<Spread>();
+		e = new Spread(key, Integer.parseInt("100"), Integer.parseInt("100"), "Opening");
 		events.add(e);
-		spoofBook.put(key, events);
+		spoofBook.put(key, events);*/
 		
 		key = "Luke Campbell vs Jairo Lopez";
-		events = new ArrayList<Event>();
-		e = new Event(key, Integer.parseInt("-50000"), Integer.parseInt("1200"), "Opening");
+		events = new ArrayList<Spread>();
+		//e = new Spread(key, Integer.parseInt("-50000"), Integer.parseInt("1200"), "Opening");
+		//events.add(e);
+		e = new Spread(key, Integer.parseInt("-5000"), Integer.parseInt("1400"), "BOVADA.LV");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-5000"), Integer.parseInt("1400"), "BOVADA.LV");
+		e = new Spread(key, Integer.parseInt("-5000"), Integer.parseInt("2000"), "5Dimes");
 		events.add(e);
-		e = new Event(key, Integer.parseInt("-5000"), Integer.parseInt("2000"), "5Dimes");
-		events.add(e);
-		e = new Event(key, Integer.parseInt("-5000"), Integer.parseInt("2000"), "SportBet");
+		e = new Spread(key, Integer.parseInt("-5000"), Integer.parseInt("2000"), "SportBet");
 		spoofBook.put(key, events);
 		
 		return spoofBook;

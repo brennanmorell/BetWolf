@@ -1,5 +1,5 @@
 
-public class Main {
+public class CrossBook {
 	private static String NBA_BOOK_STR = "nba";
 	private static String NHL_BOOK_STR = "nhl";
 	private static String UFC_BOOK_STR = "ufc";
@@ -25,28 +25,33 @@ public class Main {
 		BookMaster boxingMaster = new BookMaster(boxingService);
 		
 		/*System.out.println("NBA");
+		System.out.println();
 		nbaMaster.fetchBooks();
 		nbaMaster.printBooks();
 		System.out.println();
 		
 		System.out.println("NHL");
+		System.out.println();
 		nhlMaster.fetchBooks();
 		nhlMaster.printBooks();
 		System.out.println();
 		
 		System.out.println("UFC");
+		System.out.println();
 		ufcMaster.fetchBooks();
 		ufcMaster.printBooks();
 		System.out.println();
 		
 		System.out.println("NCAAB");
+		System.out.println();
 		ncaabMaster.fetchBooks();
 		ncaabMaster.printBooks();
 		System.out.println();*/
 		
 		System.out.println("BOXING");
+		System.out.println();
 		boxingMaster.fetchBooks();
-		boxingMaster.printBooks();
+		//boxingMaster.printBooks();
 		System.out.println();
 	}
 }
