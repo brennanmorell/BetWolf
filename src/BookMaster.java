@@ -12,8 +12,8 @@ public class BookMaster {
 	}
 	
 	public void fetchBooks(){
-		//book = service.fetch();
-		book = service.spoofResults();
+		book = service.fetch();
+		//book = service.spoofResults();
 		hunter.findOpportunities(book);
 	}
 	

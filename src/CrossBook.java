@@ -5,10 +5,12 @@ public class CrossBook {
 	private static String UFC_BOOK_STR = "ufc";
 	private static String NCAAB_BOOK_STR = "ncaab";
 	private static String BOXING_BOOK_STR = "boxing";
+	private static String ATP_BOOK_STR = "atp";
 	
 	private static String BASKETBALL = "basketball";
 	private static String HOCKEY = "hockey";
 	private static String FIGHTING = "fighting";
+	private static String TENNIS = "tennis";
 	
 	
 	public static void main(String[] args){
@@ -17,41 +19,49 @@ public class CrossBook {
 		WebService ufcService = new WebService(UFC_BOOK_STR, FIGHTING);
 		WebService ncaabService = new WebService(NCAAB_BOOK_STR, BASKETBALL);
 		WebService boxingService = new WebService(BOXING_BOOK_STR, FIGHTING);
+		WebService atpService = new WebService(ATP_BOOK_STR, TENNIS);
 		
 		BookMaster nbaMaster = new BookMaster(nbaService);
 		BookMaster nhlMaster = new BookMaster(nhlService);
 		BookMaster ufcMaster = new BookMaster(ufcService);
 		BookMaster ncaabMaster = new BookMaster(ncaabService);
 		BookMaster boxingMaster = new BookMaster(boxingService);
+		BookMaster atpMaster = new BookMaster(atpService);
 		
-		/*System.out.println("NBA");
+		System.out.println("NBA");
 		System.out.println();
-		nbaMaster.fetchBooks();
+		//nbaMaster.fetchBooks();
 		nbaMaster.printBooks();
 		System.out.println();
 		
 		System.out.println("NHL");
 		System.out.println();
-		nhlMaster.fetchBooks();
+		//nhlMaster.fetchBooks();
 		nhlMaster.printBooks();
 		System.out.println();
 		
 		System.out.println("UFC");
 		System.out.println();
 		ufcMaster.fetchBooks();
-		ufcMaster.printBooks();
+		//ufcMaster.printBooks();
 		System.out.println();
 		
 		System.out.println("NCAAB");
 		System.out.println();
 		ncaabMaster.fetchBooks();
-		ncaabMaster.printBooks();
-		System.out.println();*/
+		//ncaabMaster.printBooks();
+		System.out.println();
 		
 		System.out.println("BOXING");
 		System.out.println();
 		boxingMaster.fetchBooks();
 		//boxingMaster.printBooks();
+		System.out.println();
+		
+		System.out.println("ATP");
+		System.out.println();
+		atpMaster.fetchBooks();
+		//atpMaster.printBooks();
 		System.out.println();
 	}
 }

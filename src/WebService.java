@@ -70,8 +70,10 @@ public class WebService {
 				if(spreadElems.get(0).hasText()){
 					int side1 = Integer.parseInt(spreadElems.get(0).text());
 					int side2 = Integer.parseInt(spreadElems.get(1).text());
-					Spread e = new Spread(eventName, side1, side2, sources.get(j));
-					eventList.add(e);
+					if(!sources.get(j).equals("Opening")){
+						Spread e = new Spread(eventName, side1, side2, sources.get(j));
+						eventList.add(e);
+					}
 				}
 				else{
 					String moneyLine1 = spreadElems.get(0).attr("data-op-moneyline");
@@ -82,8 +84,10 @@ public class WebService {
 						if(!sideStr1.equals("") && !sideStr2.equals("")){
 							int side1 = Integer.parseInt(sideStr1);
 							int side2 = Integer.parseInt(sideStr2);
-							Spread e = new Spread(eventName, side1, side2, sources.get(j));
-							eventList.add(e);
+							if(!sources.get(j).equals("Opening")){
+								Spread e = new Spread(eventName, side1, side2, sources.get(j));
+								eventList.add(e);
+							}
 						}
 					}
 				}
