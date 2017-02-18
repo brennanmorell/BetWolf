@@ -30,14 +30,14 @@ public class CrossBook {
 		
 		System.out.println("NBA");
 		System.out.println();
-		//nbaMaster.fetchBooks();
-		nbaMaster.printBooks();
+		nbaMaster.fetchBooks();
+		//nbaMaster.printBooks();
 		System.out.println();
 		
 		System.out.println("NHL");
 		System.out.println();
-		//nhlMaster.fetchBooks();
-		nhlMaster.printBooks();
+		nhlMaster.fetchBooks();
+		//nhlMaster.printBooks();
 		System.out.println();
 		
 		System.out.println("UFC");

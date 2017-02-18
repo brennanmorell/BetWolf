@@ -35,7 +35,7 @@ public class WebService {
 		List<String> sources = new ArrayList<String>();
 		
 		//GET SOURCES
-		Elements bookHeaders = d.select(".op-book-header");
+		Elements bookHeaders = d.select(".op-book-header.no-vegas");
 		for(Element bookHeader : bookHeaders){
 			Element img = bookHeader.child(0).child(0);
 			sources.add(img.attr("alt"));
@@ -58,7 +58,7 @@ public class WebService {
 		Elements eventLines = d.select(".op-item-row-wrapper.not-futures");
 		int eventIndex = 0;
 		for(int i = 0; i < eventLines.size(); i++){
-			Elements siteOdds = eventLines.get(i).select(".op-item-wrapper");
+			Elements siteOdds = eventLines.get(i).select(".op-item-wrapper.no-vegas");
 			List<Spread> eventList = new ArrayList<Spread>();
 			String eventName = eventNames.get(eventIndex);
 			for(int j = 0; j < siteOdds.size(); j++){
@@ -66,27 +66,29 @@ public class WebService {
 				if(sport.equals("fighting")){
 					spreadClass = ".op-item.op-spread";
 				}
-				Elements spreadElems = siteOdds.get(j).select(spreadClass);
-				if(spreadElems.get(0).hasText()){
-					int side1 = Integer.parseInt(spreadElems.get(0).text());
-					int side2 = Integer.parseInt(spreadElems.get(1).text());
-					if(!sources.get(j).equals("Opening")){
-						Spread e = new Spread(eventName, side1, side2, sources.get(j));
-						eventList.add(e);
+				Elements spreadElems = siteOdds.get(j).select(spreadClass); 
+				if(spreadElems.size() > 1){ //ncaab had one event that had one side with .op-item.spread-price class, and one with .op-item.op-spread
+					if(spreadElems.get(0).hasText()){
+						int side1 = Integer.parseInt(spreadElems.get(0).text());
+						int side2 = Integer.parseInt(spreadElems.get(1).text());
+						if(!sources.get(j).equals("Opening")){
+							Spread e = new Spread(eventName, side1, side2, sources.get(j));
+							eventList.add(e);
+						}
 					}
-				}
-				else{
-					String moneyLine1 = spreadElems.get(0).attr("data-op-moneyline");
-					String moneyLine2 = spreadElems.get(1).attr("data-op-moneyline");
-					if(sport.equals("fighting")){
-						String sideStr1 = moneyLine1.substring(moneyLine1.indexOf(":")+2,moneyLine1.length()-2);
-						String sideStr2 = moneyLine2.substring(moneyLine2.indexOf(":")+2,moneyLine2.length()-2);
-						if(!sideStr1.equals("") && !sideStr2.equals("")){
-							int side1 = Integer.parseInt(sideStr1);
-							int side2 = Integer.parseInt(sideStr2);
-							if(!sources.get(j).equals("Opening")){
-								Spread e = new Spread(eventName, side1, side2, sources.get(j));
-								eventList.add(e);
+					else{
+						String moneyLine1 = spreadElems.get(0).attr("data-op-moneyline");
+						String moneyLine2 = spreadElems.get(1).attr("data-op-moneyline");
+						if(sport.equals("fighting")){
+							String sideStr1 = moneyLine1.substring(moneyLine1.indexOf(":")+2,moneyLine1.length()-2);
+							String sideStr2 = moneyLine2.substring(moneyLine2.indexOf(":")+2,moneyLine2.length()-2);
+							if(!sideStr1.equals("") && !sideStr2.equals("")){
+								int side1 = Integer.parseInt(sideStr1);
+								int side2 = Integer.parseInt(sideStr2);
+								if(!sources.get(j).equals("Opening")){
+									Spread e = new Spread(eventName, side1, side2, sources.get(j));
+									eventList.add(e);
+								}
 							}
 						}
 					}
