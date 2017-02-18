@@ -51,10 +51,13 @@ public class BovadaService implements SiteService {
 		    	if(group.getJSONArray("itemList").length() > 1){
 			    	JSONObject moneyLine = group.getJSONArray("itemList").getJSONObject(1);
 			    	JSONArray outcomes = moneyLine.getJSONArray("outcomes"); //contains all moneyline information
-			    	String[] sides = eventDescription.toString().split("@");
+			    	List<Integer> sides = new ArrayList<Integer>();
 			    	int side1 = Integer.parseInt(outcomes.getJSONObject(0).getJSONObject("price").get("american").toString());
 			    	int side2 = Integer.parseInt(outcomes.getJSONObject(0).getJSONObject("price").get("american").toString());
-			    	Spread e = new Spread(eventDescription.toString(), side1, side2, requestURL);
+			    	sides.add(side1);
+			    	sides.add(side2);
+			    	
+			    	Spread e = new Spread(eventDescription.toString(), sides, requestURL);
 			    	String key = side1+"|"+side2;
 			    	book.put(key, e);
 		    	}

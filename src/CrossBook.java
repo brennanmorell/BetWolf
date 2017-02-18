@@ -12,6 +12,8 @@ public class CrossBook {
 	private static String FIGHTING = "fighting";
 	private static String TENNIS = "tennis";
 	
+	private static int TWO_SIDED = 2;
+	private static int THREE_SIDED = 3;
 	
 	public static void main(String[] args){
 		WebService nbaService = new WebService(NBA_BOOK_STR, BASKETBALL);
@@ -21,12 +23,12 @@ public class CrossBook {
 		WebService boxingService = new WebService(BOXING_BOOK_STR, FIGHTING);
 		WebService atpService = new WebService(ATP_BOOK_STR, TENNIS);
 		
-		BookMaster nbaMaster = new BookMaster(nbaService);
-		BookMaster nhlMaster = new BookMaster(nhlService);
-		BookMaster ufcMaster = new BookMaster(ufcService);
-		BookMaster ncaabMaster = new BookMaster(ncaabService);
-		BookMaster boxingMaster = new BookMaster(boxingService);
-		BookMaster atpMaster = new BookMaster(atpService);
+		BookMaster nbaMaster = new BookMaster(nbaService, TWO_SIDED);
+		BookMaster nhlMaster = new BookMaster(nhlService, TWO_SIDED);
+		BookMaster ufcMaster = new BookMaster(ufcService, TWO_SIDED);
+		BookMaster ncaabMaster = new BookMaster(ncaabService, TWO_SIDED);
+		BookMaster boxingMaster = new BookMaster(boxingService, TWO_SIDED);
+		BookMaster atpMaster = new BookMaster(atpService, TWO_SIDED);
 		
 		System.out.println("NBA");
 		System.out.println();

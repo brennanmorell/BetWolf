@@ -1,19 +1,26 @@
+import java.util.*;
 
 public class Spread {
 	private String event;
 	private String source;
-	private int side1;
-	private int side2;
+	private List<Integer> sides;
 	
-	public Spread(String eStr, int s1, int s2, String src){
+	public Spread(String eStr, List<Integer> s, String src){
 		event = eStr;
-		side1 = s1;
-		side2 = s2;
+		sides = s;
 		source = src;
 	}
 	
 	public String toString(){
-		return side1+", "+side2+" " + "(" + source + ")";
+		String s = "";
+		for(Integer side : sides){
+			s+=(side.toString()+", ");
+		}
+		if(sides.size() > 0){
+			s = s.substring(s.length()-2, s.length());
+		}
+		s+="(" + source + ")";
+		return s;
 	}
 	
 	public String getEvent(){
@@ -24,11 +31,7 @@ public class Spread {
 		return source;
 	}
 	
-	public int getSide1(){
-		return side1;
-	}
-	
-	public int getSide2(){
-		return side2;
+	public int getSide(int i){
+		return sides.get(i);
 	}
 }

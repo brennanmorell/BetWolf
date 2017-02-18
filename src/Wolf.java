@@ -1,6 +1,7 @@
 import java.util.*;
 
 public class Wolf {
+	
 	public List<String> findOpportunities(Map<String, List<Spread>> book){
 		List<String> arbitrages = new ArrayList<String>();
 		for(String key : book.keySet()){
@@ -15,8 +16,8 @@ public class Wolf {
 	}
 	
 	public void computeArbitrage(Spread topSpread, Spread bottomSpread){
-		Double top = amerToDecimal(topSpread.getSide1());
-		Double bottom = amerToDecimal(bottomSpread.getSide2());
+		Double top = amerToDecimal(topSpread.getSide(0));
+		Double bottom = amerToDecimal(bottomSpread.getSide(1));
 		
 		
 		Double impliedTop= 1/top;
@@ -29,7 +30,7 @@ public class Wolf {
 			Double amount2 = (100*impliedBottom)/eventSpace;
 			Double profit = (100/eventSpace)-100;
 			System.out.println("--Arbitrage--");
-			System.out.println("Top Odd: " + top + " (" + topSpread.getSide1() + ")" + " Bottom Odd: " + bottom + " (" + bottomSpread.getSide2()+")");
+			System.out.println("Top Odd: " + top + " (" + topSpread.getSide(0) + ")" + " Bottom Odd: " + bottom + " (" + bottomSpread.getSide(1)+")");
 			System.out.println("Event: " + topSpread.getEvent());
 			System.out.println("Top Bet: " + amount1 + " ("+topSpread.getSource()+")");
 			System.out.println("Bottom Bet: " + amount2 + " (" + bottomSpread.getSource()+")");

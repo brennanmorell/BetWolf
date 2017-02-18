@@ -2,19 +2,20 @@ import java.util.*;
 
 public class BookMaster {
 	private WebService service;
-	private Wolf hunter;
+	private Wolf wolf;
 	private Map<String, List<Spread>> book;
+	private int outcomes;
 	
-	public BookMaster(WebService w){
+	public BookMaster(WebService w, int o){
 		service = w;
-		hunter = new Wolf();
+		wolf = new Wolf();
 		book = new HashMap<String, List<Spread>>();
+		outcomes = o;
 	}
 	
 	public void fetchBooks(){
-		book = service.fetch();
-		//book = service.spoofResults();
-		hunter.findOpportunities(book);
+		book = service.fetch(outcomes);
+		wolf.findOpportunities(book);
 	}
 	
 	public void printBooks(){
