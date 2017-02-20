@@ -17,9 +17,9 @@ public class Spread {
 			s+=(side.toString()+", ");
 		}
 		if(sides.size() > 0){
-			s = s.substring(s.length()-2, s.length());
+			s = s.substring(0, s.length()-2);
 		}
-		s+="(" + source + ")";
+		s+=" (" + source + ")";
 		return s;
 	}
 	

@@ -6,6 +6,7 @@ public class CrossBook {
 	private static String NCAAB_BOOK_STR = "ncaab";
 	private static String BOXING_BOOK_STR = "boxing";
 	private static String ATP_BOOK_STR = "atp";
+	private static String WTA_BOOK_STR = "wta";
 	
 	private static String BASKETBALL = "basketball";
 	private static String HOCKEY = "hockey";
@@ -22,6 +23,7 @@ public class CrossBook {
 		WebService ncaabService = new WebService(NCAAB_BOOK_STR, BASKETBALL);
 		WebService boxingService = new WebService(BOXING_BOOK_STR, FIGHTING);
 		WebService atpService = new WebService(ATP_BOOK_STR, TENNIS);
+		WebService wtaService = new WebService(WTA_BOOK_STR, TENNIS);
 		
 		BookMaster nbaMaster = new BookMaster(nbaService, TWO_SIDED);
 		BookMaster nhlMaster = new BookMaster(nhlService, TWO_SIDED);
@@ -29,6 +31,8 @@ public class CrossBook {
 		BookMaster ncaabMaster = new BookMaster(ncaabService, TWO_SIDED);
 		BookMaster boxingMaster = new BookMaster(boxingService, TWO_SIDED);
 		BookMaster atpMaster = new BookMaster(atpService, TWO_SIDED);
+		BookMaster wtaMaster = new BookMaster(wtaService, TWO_SIDED);
+		
 		
 		System.out.println("NBA");
 		System.out.println();
@@ -64,6 +68,12 @@ public class CrossBook {
 		System.out.println();
 		atpMaster.fetchBooks();
 		//atpMaster.printBooks();
+		System.out.println();
+		
+		System.out.println("WTA");
+		System.out.println();
+		wtaMaster.fetchBooks();
+		//wtaMaster.printBooks();
 		System.out.println();
 	}
 }

@@ -64,7 +64,7 @@ public class WebService {
 			String eventName = eventNames.get(eventIndex);
 			for(int j = 0; j < siteOdds.size(); j++){
 				String spreadClass = ".op-item.spread-price";
-				if(sport.equals("fighting")){
+				if(sport.equals("fighting") || sport.equals("tennis")){
 					spreadClass = ".op-item.op-spread";
 				}
 				Elements spreadElems = siteOdds.get(j).select(spreadClass); 
@@ -83,7 +83,7 @@ public class WebService {
 					else{
 						String moneyLine1 = spreadElems.get(0).attr("data-op-moneyline");
 						String moneyLine2 = spreadElems.get(1).attr("data-op-moneyline");
-						if(sport.equals("fighting")){
+						if(sport.equals("fighting") || sport.equals("tennis")){
 							String sideStr1 = moneyLine1.substring(moneyLine1.indexOf(":")+2,moneyLine1.length()-2);
 							String sideStr2 = moneyLine2.substring(moneyLine2.indexOf(":")+2,moneyLine2.length()-2);
 							if(!sideStr1.equals("") && !sideStr2.equals("")){
@@ -103,7 +103,6 @@ public class WebService {
 			aggregateBook.put(eventName, eventList);
 			eventIndex++;
 		}
-		
 		return aggregateBook;
 	}
 }
