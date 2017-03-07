@@ -8,7 +8,7 @@ public class BookMaster {
 	
 	public BookMaster(WebService w, int o){
 		service = w;
-		wolf = new Wolf();
+		wolf = new Wolf(new AlertService());
 		book = new HashMap<String, List<Spread>>();
 		outcomes = o;
 	}
