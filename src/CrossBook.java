@@ -14,7 +14,7 @@ public class CrossBook {
 	private static String TENNIS = "tennis";
 	
 	private static int TWO_SIDED = 2;
-	private static int THREE_SIDED = 3;
+	//private static int THREE_SIDED = 3;
 	
 	public static void main(String[] args){
 		WebService nbaService = new WebService(NBA_BOOK_STR, BASKETBALL);

@@ -2,13 +2,13 @@ import java.util.*;
 
 public class BookMaster {
 	private WebService service;
-	private Wolf wolf;
+	private Hunt wolf;
 	private Map<String, List<Spread>> book;
 	private int outcomes;
 	
 	public BookMaster(WebService w, int o){
 		service = w;
-		wolf = new Wolf(new AlertService());
+		wolf = new Hunt(new AlertService());
 		book = new HashMap<String, List<Spread>>();
 		outcomes = o;
 	}

@@ -29,7 +29,7 @@ public class AlertService {
 			@Override
 			protected PasswordAuthentication     getPasswordAuthentication()
 			{
-				return new PasswordAuthentication("bpmorell13@yahoo.com","");
+				return new PasswordAuthentication("bpmorell13@yahoo.com",""); // fix plain text password
 			}
 		});
 
