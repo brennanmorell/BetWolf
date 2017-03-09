@@ -12,17 +12,29 @@ public class WebService {
 	private Document d;
 	private String bookName;
 	private String sport;
+	private String url;
+	
 	public WebService(String b, String s){
 		bookName = b;
 		sport = s;
+		if(sport.equals("soccer")){
+			url = "http://soccer.oddsshark.com/"+bookName+"/odds";
+		}
+		else{
+			url = "http://www.oddsshark.com/"+bookName+"/odds";
+		}
 	}
 	
-	public Map<String,List<Spread>> fetch(int outcomes){
-		try {
-			String url = "http://www.oddsshark.com/"+bookName+"/odds";		
+	public Map<String,List<Spread>> fetch(){
+		try {		
 			d = Jsoup.connect(url).timeout(6000).get();
 			//System.out.println(d);
-			return parseDocument(outcomes);
+			if(sport.equals("soccer")){
+				return parseSoccer();
+			}
+			else{
+				return parseDocument();
+			}
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
@@ -30,7 +42,83 @@ public class WebService {
 		return new HashMap<String, List<Spread>>();
 	}
 	
-	public Map<String,List<Spread>> parseDocument(int outcomes){
+	public Map<String, List<Spread>> parseSoccer(){
+		Map<String, List<Spread>> aggregateBook = new HashMap<String, List<Spread>>();
+		List<String> eventNames = new ArrayList<String>();
+		List<String> sources = new ArrayList<String>();
+		
+		Elements bookNameElems = d.select(".book.name");
+		
+		//GET SOURCES
+		int index = 0;
+		for(Element bookNameElem : bookNameElems){
+			if(index > 0){
+				String bookLink = bookNameElem.child(0).child(0).attr("href");
+				if(bookLink.indexOf(".") == -1){
+					sources.add(bookLink.substring(17));
+				}
+				else{
+					sources.add(bookLink.substring(17, bookLink.length()-4));
+				}
+			}
+			index++;
+		}
+	
+		
+		Elements events = d.select(".odds-row");
+		for(Element event : events){
+			//String eventDateElem = event.child(0).toString();
+			
+			Element outcomesElem = event.child(1); //teams element
+			String outcomesString = outcomesElem.child(0).toString();
+			
+			if(outcomesString.contains("<br>")){
+				int outcome1Start = outcomesString.indexOf(">");
+				int team2Start = outcomesString.indexOf("<br>");
+				
+				String team1 = outcomesString.substring(outcome1Start+1, team2Start);
+				int spanIndex = team1.indexOf("=\"");
+				if(spanIndex != -1){ //sometimes team1 stored in span elemen. not sure why
+					team1 = team1.substring(spanIndex+2, team1.indexOf(">")-1);
+				}
+				
+				String team2 = outcomesString.substring(team2Start+5);
+				team2 = team2.substring(0, team2.indexOf("<br><"));
+				
+				String eventName = team1 + " " + team2 + " draw ";
+				Element oddsElem = event.child(3);
+				Elements moneyLineElems = oddsElem.select(".book.moneyline");
+			
+				List<Spread> eventList = new ArrayList<Spread>();
+				int eventIndex = 0;
+				for(Element moneyLine : moneyLineElems){
+					Elements outcomeOdds = moneyLine.select(".book.moneyline");
+					for(Element outcomeOdd : outcomeOdds){
+						String side1 = outcomeOdd.child(0).text();
+						String side2 = outcomeOdd.child(1).text();
+						String side3 = outcomeOdd.child(2).text();
+						
+						if(!side1.equals(" ") && !side2.equals(" ") && !side3.equals(" ")){
+							List<Integer> sides = new ArrayList<Integer>();
+							sides.add(Integer.parseInt(side1));
+							sides.add(Integer.parseInt(side2));
+							sides.add(Integer.parseInt(side3));
+							
+							Spread e = new Spread(eventName, sides, sources.get(eventIndex));
+							eventList.add(e);
+						}
+					}
+					eventIndex++;
+				}
+				aggregateBook.put(eventName, eventList);
+			}
+		}
+		
+		
+		return aggregateBook;
+	}
+	
+	public Map<String,List<Spread>> parseDocument(){
 		Map<String, List<Spread>> aggregateBook = new HashMap<String, List<Spread>>();
 		List<String> eventNames = new ArrayList<String>();
 		List<String> sources = new ArrayList<String>();
@@ -104,5 +192,13 @@ public class WebService {
 			eventIndex++;
 		}
 		return aggregateBook;
+	}
+	
+	public String getSport(){
+		return sport;
+	}
+	
+	public String getBookName(){
+		return bookName;
 	}
 }

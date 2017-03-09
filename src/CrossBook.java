@@ -7,73 +7,91 @@ public class CrossBook {
 	private static String BOXING_BOOK_STR = "boxing";
 	private static String ATP_BOOK_STR = "atp";
 	private static String WTA_BOOK_STR = "wta";
+	private static String EPL_BOOK_STR = "england-premiership";
 	
 	private static String BASKETBALL = "basketball";
 	private static String HOCKEY = "hockey";
 	private static String FIGHTING = "fighting";
 	private static String TENNIS = "tennis";
+	private static String SOCCER = "soccer";
 	
 	private static int TWO_SIDED = 2;
-	//private static int THREE_SIDED = 3;
+	private static int THREE_SIDED = 3;
 	
 	public static void main(String[] args){
 		WebService nbaService = new WebService(NBA_BOOK_STR, BASKETBALL);
-		WebService nhlService = new WebService(NHL_BOOK_STR, HOCKEY);
+		//WebService nhlService = new WebService(NHL_BOOK_STR, HOCKEY);
 		WebService ufcService = new WebService(UFC_BOOK_STR, FIGHTING);
 		WebService ncaabService = new WebService(NCAAB_BOOK_STR, BASKETBALL);
 		WebService boxingService = new WebService(BOXING_BOOK_STR, FIGHTING);
 		WebService atpService = new WebService(ATP_BOOK_STR, TENNIS);
 		WebService wtaService = new WebService(WTA_BOOK_STR, TENNIS);
+		WebService eplService = new WebService(EPL_BOOK_STR, SOCCER);
 		
 		BookMaster nbaMaster = new BookMaster(nbaService, TWO_SIDED);
-		BookMaster nhlMaster = new BookMaster(nhlService, TWO_SIDED);
+		//BookMaster nhlMaster = new BookMaster(nhlService, TWO_SIDED);
 		BookMaster ufcMaster = new BookMaster(ufcService, TWO_SIDED);
 		BookMaster ncaabMaster = new BookMaster(ncaabService, TWO_SIDED);
 		BookMaster boxingMaster = new BookMaster(boxingService, TWO_SIDED);
 		BookMaster atpMaster = new BookMaster(atpService, TWO_SIDED);
 		BookMaster wtaMaster = new BookMaster(wtaService, TWO_SIDED);
+		BookMaster eplMaster = new BookMaster(eplService, THREE_SIDED);
 		
 		
 		System.out.println("NBA");
 		System.out.println();
 		nbaMaster.fetchBooks();
 		//nbaMaster.printBooks();
+		nbaMaster.generateReports();
 		System.out.println();
 		
-		System.out.println("NHL");
+		/*System.out.println("NHL");
 		System.out.println();
 		nhlMaster.fetchBooks();
 		//nhlMaster.printBooks();
-		System.out.println();
+		nhlMaster.generateReports();
+		System.out.println();*/
 		
 		System.out.println("UFC");
 		System.out.println();
 		ufcMaster.fetchBooks();
 		//ufcMaster.printBooks();
+		ufcMaster.generateReports();
 		System.out.println();
 		
 		System.out.println("NCAAB");
 		System.out.println();
 		ncaabMaster.fetchBooks();
 		//ncaabMaster.printBooks();
+		ncaabMaster.generateReports();
 		System.out.println();
 		
 		System.out.println("BOXING");
 		System.out.println();
 		boxingMaster.fetchBooks();
 		//boxingMaster.printBooks();
+		boxingMaster.generateReports();
 		System.out.println();
 		
 		System.out.println("ATP");
 		System.out.println();
 		atpMaster.fetchBooks();
 		//atpMaster.printBooks();
+		atpMaster.generateReports();
 		System.out.println();
 		
 		System.out.println("WTA");
 		System.out.println();
 		wtaMaster.fetchBooks();
 		//wtaMaster.printBooks();
+		wtaMaster.generateReports();
 		System.out.println();
+				
+		System.out.println("EPL");
+		System.out.println();
+		eplMaster.fetchBooks();
+		//eplMaster.printBooks();
+		eplMaster.generateReports();
+		System.out.println();		
 	}
 }

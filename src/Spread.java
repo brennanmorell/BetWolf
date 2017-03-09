@@ -31,6 +31,10 @@ public class Spread {
 		return source;
 	}
 	
+	public int getNumSides(){
+		return sides.size();
+	}
+	
 	public int getSide(int i){
 		return sides.get(i);
 	}

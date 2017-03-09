@@ -27,7 +27,7 @@ public class AlertService {
 		Session session = Session.getDefaultInstance(props,new javax.mail.Authenticator()
 		{
 			@Override
-			protected PasswordAuthentication     getPasswordAuthentication()
+			protected PasswordAuthentication getPasswordAuthentication()
 			{
 				return new PasswordAuthentication("bpmorell13@yahoo.com",""); // fix plain text password
 			}
@@ -48,7 +48,6 @@ public class AlertService {
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
