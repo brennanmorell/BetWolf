@@ -12,7 +12,6 @@ public class BetCalculator {
 			return find2SidedOpportunities(book);
 		}
 		else if(sides == 3){
-			System.out.println("Sides is 3");
 			return find3SidedOpportunities(book);
 		}
 		else{

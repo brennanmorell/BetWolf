@@ -24,9 +24,9 @@ public class BookMaster {
 		if(arbs.size() > 0){
 			String book = web_service.getBookName();
 			String sport = web_service.getSport();
-			String message_body = "Sport: " + sport + " " + book + "\n";
+			String message_body = "Sport: " + sport + " " + book + "\n \n";
 			for(String arb : arbs){
-				message_body = arb + "\n";
+				message_body += (arb + "\n");
 			}
 			System.out.println(message_body);
 			alert_service.sendEmail(message_body);
