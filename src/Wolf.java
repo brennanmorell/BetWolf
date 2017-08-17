@@ -33,6 +33,9 @@ public class Wolf implements Job {
 		hunt();
 	}
 	
+	/*
+	 * Something wrong with NBA, NCAAB and NHL scraping.
+	 */
 	public static void hunt(){
 		WebService nbaService = new WebService(NBA_BOOK_STR, BASKETBALL);
 		WebService mlbService = new WebService(MLB_BOOK_STR, BASEBALL);
@@ -58,12 +61,12 @@ public class Wolf implements Job {
 		BookMaster mlsMaster = new BookMaster(mlsService, THREE_SIDED);
 		BookMaster champMaster = new BookMaster(champService, THREE_SIDED);
 		
-		/*System.out.println("NBA");
+		System.out.println("NBA");
 		System.out.println();
 		nbaMaster.fetchBooks();
 		//nbaMaster.printBooks();
 		nbaMaster.generateReports();
-		System.out.println();*/
+		System.out.println();
 		
 		System.out.println("MLB");
 		System.out.println();
@@ -72,12 +75,12 @@ public class Wolf implements Job {
 		mlbMaster.generateReports();
 		System.out.println();
 		
-		/*System.out.println("NHL");
+		System.out.println("NHL");
 		System.out.println();
 		nhlMaster.fetchBooks();
 		//nhlMaster.printBooks();
 		nhlMaster.generateReports();
-		System.out.println();*/
+		System.out.println();
 		
 		System.out.println("UFC");
 		System.out.println();
@@ -86,12 +89,12 @@ public class Wolf implements Job {
 		ufcMaster.generateReports();
 		System.out.println();
 		
-		/*System.out.println("NCAAB");
+		System.out.println("NCAAB");
 		System.out.println();
 		ncaabMaster.fetchBooks();
 		//ncaabMaster.printBooks();
 		ncaabMaster.generateReports();
-		System.out.println();*/
+		System.out.println();
 		
 		System.out.println("BOXING");
 		System.out.println();

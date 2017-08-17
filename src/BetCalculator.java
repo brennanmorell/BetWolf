@@ -9,23 +9,23 @@ public class BetCalculator {
 	
 	public List<String> findOpportunities(Map<String, List<Spread>> book){
 		if(sides == 2){
-			return find2SidedOpportunities(book);
+			return findTwoSidedOpportunities(book);
 		}
 		else if(sides == 3){
-			return find3SidedOpportunities(book);
+			return findThreeSidedOpportunities(book);
 		}
 		else{
 			return new ArrayList<String>();
 		}
 	}
 		
-	public List<String> find2SidedOpportunities(Map<String, List<Spread>> book){
+	public List<String> findTwoSidedOpportunities(Map<String, List<Spread>> book){
 		List<String> arbs = new ArrayList<String>();
 		for(String key : book.keySet()){
 			List<Spread> spreads = book.get(key);
 			for(Spread topSpread : spreads){
 				for(Spread bottomSpread : spreads){
-					String arb = compute2SidedArbitrage(topSpread, bottomSpread);
+					String arb = computeTwoSidedArbitrage(topSpread, bottomSpread);
 					if(!arb.equals("")){
 						arbs.add(arb);
 					}
@@ -35,7 +35,7 @@ public class BetCalculator {
 		return arbs;
 	}
 	
-	public List<String> find3SidedOpportunities(Map<String, List<Spread>> book){
+	public List<String> findThreeSidedOpportunities(Map<String, List<Spread>> book){
 		List<String> arbs = new ArrayList<String>();
 		for(String key : book.keySet()){
 			List<Spread> spreads = book.get(key);
@@ -45,7 +45,7 @@ public class BetCalculator {
 					if(i != spreadIndex){
 						for(int j = 0; j < spreads.size(); j++){
 							if(j != spreadIndex && j != i){
-								String arb = compute3SidedArbitrage(spread, spreads.get(i), spreads.get(j));
+								String arb = computeThreeSidedArbitrage(spread, spreads.get(i), spreads.get(j));
 								if(!arb.equals("")){
 									arbs.add(arb);
 								}
@@ -60,7 +60,7 @@ public class BetCalculator {
 	}
 	
 	
-	public String compute2SidedArbitrage(Spread topSpread, Spread bottomSpread){
+	public String computeTwoSidedArbitrage(Spread topSpread, Spread bottomSpread){
 		Double top = amerToDecimal(topSpread.getSide(0));
 		Double bottom = amerToDecimal(bottomSpread.getSide(1));
 		
@@ -74,13 +74,13 @@ public class BetCalculator {
 			Double amount1 = (1*impliedTop)/eventSpace;
 			Double amount2 = (1*impliedBottom)/eventSpace;
 			Double profit = (1/eventSpace)-1;
-			return generate2SideArbStr(top, bottom, topSpread, bottomSpread, amount1, amount2, profit);
+			return generateTwoSideArbStr(top, bottom, topSpread, bottomSpread, amount1, amount2, profit);
 		}
 		
 		return "";
 	}
 	
-	public String compute3SidedArbitrage(Spread spread1, Spread spread2, Spread spread3){
+	public String computeThreeSidedArbitrage(Spread spread1, Spread spread2, Spread spread3){
 		Double side1 = amerToDecimal(spread1.getSide(0));
 		Double side2 = amerToDecimal(spread2.getSide(1));
 		Double side3 = amerToDecimal(spread3.getSide(2));
@@ -96,7 +96,7 @@ public class BetCalculator {
 			Double amount2 = (1*implied2)/eventSpace;
 			Double amount3 = (1*implied3)/eventSpace;
 			Double profit = (1/eventSpace)-1;
-			return generate3SideArbStr(side1, side2, side3, spread1, spread2, spread3, amount1, amount2, amount3, profit);
+			return generateThreeSideArbStr(side1, side2, side3, spread1, spread2, spread3, amount1, amount2, amount3, profit);
 		}
 		
 		return "";
@@ -111,7 +111,7 @@ public class BetCalculator {
 		}
 	}
 	
-	public static String generate2SideArbStr(Double top, Double bottom, Spread topSpread, Spread bottomSpread, Double amount1, Double amount2, Double profit){
+	public static String generateTwoSideArbStr(Double top, Double bottom, Spread topSpread, Spread bottomSpread, Double amount1, Double amount2, Double profit){
 		String s = "--Arbitrage--\n";
 		s+="Odd 1: " + top + " (" + topSpread.getSide(0) + ")" + " Odd 2: " + bottom + " (" + bottomSpread.getSide(1)+")\n";
 		s+="Event: " + topSpread.getEvent()+"\n";
@@ -121,7 +121,7 @@ public class BetCalculator {
 		return s;
 	}
 	
-	public static String generate3SideArbStr(Double side1, Double side2, Double side3, Spread spread1, Spread spread2, Spread spread3, Double amount1, Double amount2, Double amount3, Double profit){
+	public static String generateThreeSideArbStr(Double side1, Double side2, Double side3, Spread spread1, Spread spread2, Spread spread3, Double amount1, Double amount2, Double amount3, Double profit){
 		String s = "--Arbitrage--\n";
 		s+="Odd 1: " + side1 + " (" + spread1.getSide(0) + ")" + " Odd 2: " + side2 + " (" + spread2.getSide(1) + ")" + " Odd3: " + side3+ " (" + spread3.getSide(2)+")\n";
 		s+="Event: " + spread1.getEvent()+"\n";

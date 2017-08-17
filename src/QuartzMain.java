@@ -10,10 +10,7 @@ import org.quartz.impl.StdSchedulerFactory;
 
 public class QuartzMain {
 	public static void main(String[] args){
-		
 		JobDetail job = JobBuilder.newJob(Wolf.class).build();
-		
-		//Trigger t = TriggerBuilder.newTrigger().withIdentity("MinTrigger").withSchedule(CronScheduleBuilder.cronSchedule("0 0/1 * 1/1 * ? *")).build();
 		Trigger t = TriggerBuilder.newTrigger().withIdentity("CronTrigger").withSchedule(CronScheduleBuilder.cronSchedule("0 0/5 * 1/1 * ? *")).build();
 		Scheduler s;
 		try {
